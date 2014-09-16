@@ -1,0 +1,34 @@
+#cloud-config
+
+hostname: {{ inventory_hostname }}.{{ pod }}.{{ domain }}
+coreos:
+  etcd:
+    name: {{ inventory_hostname }}
+    discovery: {{ coreos_discovery }}
+  fleet:
+    metadata: {{ pod_metadata | union(machine_metadata) | join(",") }}
+  update:
+    reboot-strategy: best-effort
+    group: {{ coreos_channel }}
+  units:
+    - name: etcd.service
+      command: start
+    - name: fleet.service
+      command: start
+write_files:
+  - path: /opt/bin/python
+    permissions: 0755
+    content: |
+      #!/bin/bash
+      toolbox --bind=/home:/home python "$@"
+users:
+{% for user in users %}
+  - name: {{ user.name }}
+    coreos-ssh-import-github: {{ user.github }}
+    groups:
+      - docker
+      # systemd-journal currently not changeable
+      - systemd-journal
+{% if user.admin %}
+      - sudo
+{% endif %}{% endfor %}

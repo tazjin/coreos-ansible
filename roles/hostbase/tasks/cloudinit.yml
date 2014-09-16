@@ -1,0 +1,9 @@
+---
+# Deploy cloudconfig and run coreos-cloudinit
+
+- name: Install cloudconfig
+  template: src=cloud_config.j2 dest=/media/root/var/lib/coreos-install/user_data
+
+- name: Run coreos-cloudinit
+  raw: coreos-cloudinit --from-file=/var/lib/coreos-install/user_data
+  tags: apply-cloudconfig

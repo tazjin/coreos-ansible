@@ -1,0 +1,6 @@
+---
+# Set up users from Github
+users:
+  - name: vincent
+    github: tazjin
+    admin: true

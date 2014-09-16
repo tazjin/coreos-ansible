@@ -1,0 +1,4 @@
+---
+pod: "test"
+pod_metadata:
+  - "pod={{ pod }}"

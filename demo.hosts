@@ -1,0 +1,20 @@
+[coreos]
+demo-coreos-a1 # ansible_ssh_host=...
+demo-coreos-a2 # ansible_ssh_host=...
+demo-coreos-a3 # ansible_ssh_host=...
+
+# Defines a "pod" of demo machines with the
+# ones from above
+[demo]
+demo-coreos-a1
+demo-coreos-a2
+demo-coreos-a3
+
+[all:vars]
+ansible_python_interpreter=/opt/bin/python
+# Domain for host FQDNs
+domain=tazj.in
+machine_metadata=[]
+# From discovery.etcd.io/new
+coreos_discovery=https://discovery.etcd.io/909e6998e48aec40e56ba72e3c17276d
+coreos_channel=stable

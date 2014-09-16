@@ -1,0 +1,6 @@
+---
+
+# Run cloudinit.yml
+- name: Run cloudconfig from template
+  include: cloudinit.yml
+  tags: cloudconfig

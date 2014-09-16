@@ -1,0 +1,12 @@
+---
+# Sets up hostbase on every host
+
+- name: Apply hostbase
+  sudo: true
+  # Facts not needed
+  gather_facts: false
+  hosts: coreos
+  vars_files:
+    - "group_vars/users.yml"
+  roles:
+    - hostbase
